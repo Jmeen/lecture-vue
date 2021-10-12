@@ -1,0 +1,284 @@
+[1mdiff --git a/1-vanilla/index.html b/1-vanilla/index.html[m
+[1mindex 97a806c..f5b8d86 100644[m
+[1m--- a/1-vanilla/index.html[m
+[1m+++ b/1-vanilla/index.html[m
+[36m@@ -8,23 +8,19 @@[m
+   <link rel="stylesheet" href="./style.css">[m
+ </head>[m
+ <body>[m
+[31m-[m
+   <div>[m
+     <header>[m
+       <h2 class="container">검색</h2>[m
+     </header>[m
+ [m
+     <div class="container">[m
+[31m-      <form action="">[m
+[31m-        <input type="text" placeholder="검색어를 입력하세요" autofocus/>[m
+[32m+[m[32m      <form>[m
+[32m+[m[32m        <input type="text" placeholder="검색어를 입력하세요" autofocus>[m
+         <button type="reset" class="btn-reset"></button>[m
+       </form>[m
+     </div>[m
+[31m-[m
+[31m-[m
+[31m-[m
+   </div>[m
+[31m-  [m
+[32m+[m
+   <script type="module" src="./js/app.js"></script>[m
+ </body>[m
+ </html>[m
+\ No newline at end of file[m
+[1mdiff --git a/1-vanilla/js/app.js b/1-vanilla/js/app.js[m
+[1mindex 6f85520..559f0f8 100644[m
+[1m--- a/1-vanilla/js/app.js[m
+[1m+++ b/1-vanilla/js/app.js[m
+[36m@@ -1,5 +1,5 @@[m
+[31m-import MainController from "./controller/MainController.js";[m
+[32m+[m[32mimport MainController from './controllers/MainController.js'[m
+ [m
+[31m-document.addEventListener("DOMContentLoaded", () => {[m
+[31m-  MainController.init();[m
+[31m-});[m
+[32m+[m[32mdocument.addEventListener('DOMContentLoaded', () => {[m
+[32m+[m[32m  MainController.init()[m
+[32m+[m[32m})[m
+\ No newline at end of file[m
+[1mdiff --git a/1-vanilla/js/controller/MainController.js b/1-vanilla/js/controller/MainController.js[m
+[1mdeleted file mode 100644[m
+[1mindex a614f51..0000000[m
+[1m--- a/1-vanilla/js/controller/MainController.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,22 +0,0 @@[m
+[31m-import FormView from "../views/FormView.js";[m
+[31m-[m
+[31m-const tag = "[MainController]";[m
+[31m-[m
+[31m-export default {[m
+[31m-  init() {[m
+[31m-    console.log(tag, "init()");[m
+[31m-    FormView.setup(document.querySelector("form"))[m
+[31m-      .on("@submit", (e) => this.onSubmit(e.detail.input))[m
+[31m-      .on("@reset", (e) => this.onResetForm());[m
+[31m-  },[m
+[31m-[m
+[31m-  onSubmit(event, input) {[m
+[31m-    event.preventDefault();[m
+[31m-[m
+[31m-    console.log(tag, "onsubmit", input);[m
+[31m-  },[m
+[31m-[m
+[31m-  onResetForm() {[m
+[31m-    console.log(tag, "onREsetForm");[m
+[31m-  },[m
+[31m-};[m
+[1mdiff --git a/1-vanilla/js/controllers/MainController.js b/1-vanilla/js/controllers/MainController.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..39128ca[m
+[1m--- /dev/null[m
+[1m+++ b/1-vanilla/js/controllers/MainController.js[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mimport FormView from '../views/FormView.js'[m
+[32m+[m
+[32m+[m[32mconst tag = '[MainController]'[m
+[32m+[m
+[32m+[m[32mexport default {[m
+[32m+[m[32m  init() {[m
+[32m+[m[32m    FormView.setup(document.querySelector('form'))[m
+[32m+[m[32m      .on('@submit', e => this.onSubmit(e.detail.input))[m
+[32m+[m[32m      .on('@reset', e => this.onResetForm())[m
+[32m+[m[32m},[m
+[32m+[m
+[32m+[m[32m  onSubmit(input) {[m
+[32m+[m[32m    console.log(tag, 'onSubmit()', input)[m
+[32m+[m[32m  },[m
+[32m+[m
+[32m+[m[32m  onResetForm() {[m
+[32m+[m[32m    console.log(tag, 'onResetForm()')[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/1-vanilla/js/models/HistoryModel.js b/1-vanilla/js/models/HistoryModel.js[m
+[1mindex adeb30e..fc0b9dc 100644[m
+[1m--- a/1-vanilla/js/models/HistoryModel.js[m
+[1m+++ b/1-vanilla/js/models/HistoryModel.js[m
+[36m@@ -1,30 +1,26 @@[m
+ export default {[m
+   data: [[m
+[31m-    { keyword: "검색기록2", date: "12.03" },[m
+[31m-    { keyword: "검색기록1", date: "12.02" },[m
+[31m-    { keyword: "검색기록0", date: "12.01" },[m
+[32m+[m[32m    { keyword: '검색기록2', date: '12.03' },[m
+[32m+[m[32m    { keyword: '검색기록1', date: '12.02'},[m
+[32m+[m[32m    { keyword: '검색기록0', date: '12.01' },[m
+   ],[m
+ [m
+[31m-  // 그냥 데이터를 리턴한다. promise를 이용한 이유는 서버에서 비동기로 데이터를 가져와야하는 경우가 있기 때문.[m
+   list() {[m
+[31m-    return Promise.resolve(this.data);[m
+[32m+[m[32m    return Promise.resolve(this.data)[m
+   },[m
+[31m-[m
+[31m-  // 추가될 검색어를 받아, 데이터의 유무를 체크하고, 날짜를 추가하여 등록[m
+[31m-[m
+[31m-  add(keyword = "") {[m
+[31m-    keyword = keyword.trim();[m
+[31m-    if (!keyword) return;[m
+[31m-    if (this.data.some((item) => item.keyword === keyword)) {[m
+[31m-      this.remove(keyword);[m
+[32m+[m[41m  [m
+[32m+[m[32m  add(keyword = '') {[m
+[32m+[m[32m    keyword = keyword.trim()[m
+[32m+[m[32m    if (!keyword) return[m[41m [m
+[32m+[m[32m    if (this.data.some(item => item.keyword === keyword)) {[m
+[32m+[m[32m      this.remove(keyword)[m
+     }[m
+ [m
+[31m-    const date = "12.31";[m
+[31m-    this.data = [{ keyword, date }, ...this.data];[m
+[32m+[m[32m    const date = '12.31'[m
+[32m+[m[32m    this.data = [{keyword, date}, ...this.data][m
+   },[m
+[31m-[m
+[31m-  // 키워드를 받아서 그 키워드인 것을 삭제[m
+[32m+[m[41m  [m
+   remove(keyword) {[m
+[31m-    this.data = this.data.filter((item) => item.keyword !== keyword);[m
+[31m-  },[m
+[31m-};[m
+[32m+[m[32m    this.data = this.data.filter(item => item.keyword !== keyword)[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/1-vanilla/js/views/FormView.js b/1-vanilla/js/views/FormView.js[m
+[1mindex fb2abf8..371946c 100644[m
+[1m--- a/1-vanilla/js/views/FormView.js[m
+[1m+++ b/1-vanilla/js/views/FormView.js[m
+[36m@@ -1,44 +1,39 @@[m
+[31m-import View from "./View.js";[m
+[32m+[m[32mimport View from './View.js'[m
+ [m
+[31m-const tag = "[FormView]";[m
+[32m+[m[32mconst tag = '[FormView]'[m
+ [m
+[31m-const FormView = Object.create(View);[m
+[32m+[m[32mconst FormView = Object.create(View)[m
+ [m
+ FormView.setup = function (el) {[m
+[31m-  this.init(el);[m
+[31m-  this.inputEl = el.querySelector("[type=text]");[m
+[31m-  this.resetEl = el.querySelector("[type=reset]");[m
+[31m-  this.showResetBtn(false);[m
+[31m-  this.bindEvents();[m
+[31m-  return this;[m
+[31m-};[m
+[32m+[m[32m  this.init(el)[m
+[32m+[m[32m  this.inputEl = el.querySelector('[type=text]')[m
+[32m+[m[32m  this.resetEl = el.querySelector('[type=reset')[m
+[32m+[m[32m  this.showResetBtn(false)[m
+[32m+[m[32m  this.bindEvents()[m
+[32m+[m[32m  return this[m
+[32m+[m[32m}[m
+ [m
+ FormView.showResetBtn = function (show = true) {[m
+[31m-  this.resetEl.style.display = show ? "block" : "none";[m
+[31m-};[m
+[32m+[m[32m  this.resetEl.style.display = show ? 'block' : 'none'[m
+[32m+[m[32m}[m
+ [m
+ FormView.bindEvents = function () {[m
+[31m-  this.inputEl.addEventListener("keyup", (event) => {[m
+[31m-    this.onKeyup(event);[m
+[31m-  });[m
+[31m-[m
+[31m-  // 클릭 시 X사라짐[m
+[31m-  this.resetEl.addEventListener("click", () => {[m
+[31m-    this.onClickReset();[m
+[31m-  });[m
+[31m-};[m
+[31m-[m
+[31m-FormView.onKeyup = function (event) {[m
+[31m-  const enter = 13;[m
+[31m-  this.showResetBtn(this.inputEl.value.length);[m
+[31m-  if (!this.inputEl.value.length) this.emit("@reset");[m
+[31m-  if (event.keyCode !== enter) return;[m
+[31m-  this.emit("@submit", { input: this.inputEl.value });[m
+[31m-};[m
+[32m+[m[32m  this.on('submit', e => e.preventDefault())[m
+[32m+[m[32m  this.inputEl.addEventListener('keyup', e => this.onKeyup(e))[m
+[32m+[m[32m  this.resetEl.addEventListener('click', e => this.onClickReset())[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mFormView.onKeyup = function (e) {[m
+[32m+[m[32m  const enter = 13[m
+[32m+[m[32m  this.showResetBtn(this.inputEl.value.length)[m
+[32m+[m[32m  if (!this.inputEl.value.length) this.emit('@reset')[m
+[32m+[m[32m  if (e.keyCode !== enter) return[m
+[32m+[m[32m  this.emit('@submit', { input: this.inputEl.value })[m
+[32m+[m[32m}[m
+ [m
+ FormView.onClickReset = function () {[m
+[31m-  this.emit("@reset");[m
+[31m-  this.showResetBtn(false);[m
+[31m-};[m
+[32m+[m[32m  this.emit('@reset')[m
+[32m+[m[32m  this.showResetBtn(false)[m
+[32m+[m[32m}[m
+ [m
+[31m-export default FormView;[m
+[32m+[m[32mexport default FormView[m
+\ No newline at end of file[m
+[1mdiff --git a/1-vanilla/js/views/View.js b/1-vanilla/js/views/View.js[m
+[1mindex f369d56..d1ffd06 100644[m
+[1m--- a/1-vanilla/js/views/View.js[m
+[1m+++ b/1-vanilla/js/views/View.js[m
+[36m@@ -1,32 +1,30 @@[m
+[31m-const tag = "[View]";[m
+[32m+[m[32mconst tag = '[View]'[m
+ [m
+ export default {[m
+   init(el) {[m
+[31m-    if (!el) throw el;[m
+[31m-    this.el = el;[m
+[31m-    return this;[m
+[32m+[m[32m    if (!el) throw el[m
+[32m+[m[32m    this.el = el[m
+[32m+[m[32m    return this[m
+   },[m
+ [m
+[31m-  // 이벤트와 핸들러를 인자로 받아서 엘리먼트에서 이벤트가 발생했을때 핸들러 실행[m
+   on(event, handler) {[m
+[31m-    this.el.addEventListener(event, handler);[m
+[31m-    return this;[m
+[32m+[m[32m    this.el.addEventListener(event, handler)[m
+[32m+[m[32m    return this[m
+   },[m
+ [m
+[31m-  // 스스로 이벤트를 방출함. 커스텀이벤트는 이름과 디테일 데이터 객체를 받아서 엘리먼트에 이벤트를 방출[m
+   emit(event, data) {[m
+[31m-    const evt = new CustomEvent(event, { detail: data });[m
+[31m-    this.el.dispatchEvent(evt);[m
+[31m-    return this;[m
+[32m+[m[32m    const evt = new CustomEvent(event, { detail: data })[m
+[32m+[m[32m    this.el.dispatchEvent(evt)[m
+[32m+[m[32m    return this[m
+   },[m
+ [m
+   hide() {[m
+[31m-    this.el.style.display = "none";[m
+[31m-    return this;[m
+[32m+[m[32m    this.el.style.display = 'none'[m
+[32m+[m[32m    return this[m
+   },[m
+ [m
+   show() {[m
+[31m-    this.el.style.display = "";[m
+[31m-    return this;[m
+[31m-  },[m
+[31m-};[m
+[32m+[m[32m    this.el.style.display = ''[m
+[32m+[m[32m    return this[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
